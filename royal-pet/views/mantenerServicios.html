@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Royal Pet - Servicios</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Contenedor global de alertas animadas -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <aside class="sidebar">
+    <div class="logo-container" title="Logo Royal Pet">
+        <img src="img/royalpet.jpeg" alt="Logo royal Pet">
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="index.html"><i class="fa-solid fa-house"></i> Inicio</a></li>
+      <li><a href="mantenerEmpleados.html"><i class="fa-solid fa-user-doctor"></i> Empleados</a></li>
+      <li><a href="mantenerClientes.html"><i class="fa-solid fa-users"></i> Clientes</a></li>
+      <li><a href="mantenerMascotas.html"><i class="fa-solid fa-dog"></i> Mascotas</a></li>
+      <li><a href="mantenerServicios.html" class="active"><i class="fa-solid fa-stethoscope"></i> Servicios</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+    <div class="page-header">
+      <div>
+        <h1>Catálogo de Servicios</h1>
+        <p class="page-subtitle">Administración de consultas, cirugías, estética y procedimientos veterinarios</p>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="buscarServicio" placeholder="Buscar por nombre, categoría o descripción...">
+      </div>
+      <button class="btn btn-primary" id="btnNuevoServicio">
+        <i class="fa-solid fa-plus"></i> Nuevo Servicio
+      </button>
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Servicio</th>
+            <th>Categoría</th>
+            <th>Duración</th>
+            <th>Costo</th>
+            <th>Descripción</th>
+            <th>Archivo / Guía</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tablaServicios">
+          <!-- Se renderiza dinámicamente con JS -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Modal Profesional Agregar / Editar Servicio -->
+  <div class="modal-overlay" id="modalServicio">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalServicioTitulo">Registrar Nuevo Servicio</h2>
+        <button class="close-modal" onclick="cerrarModal('modalServicio')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <form id="formServicio" novalidate>
+        <input type="hidden" id="servId">
+
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label>Nombre del Servicio <span class="required-star">*</span></label>
+            <input type="text" id="servNombre" placeholder="Ej. Consulta General / Esterilización" required>
+          </div>
+
+          <div class="form-group">
+            <label>Categoría <span class="required-star">*</span></label>
+            <select id="servCategoria" required>
+              <option value="">Selecciona una categoría...</option>
+              <option value="Clínica">Clínica / Consulta</option>
+              <option value="Estética">Estética & Spa</option>
+              <option value="Cirugía">Cirugía</option>
+              <option value="Vacunación">Vacunación & Desparasitación</option>
+              <option value="Laboratorio">Laboratorio & Rayos X</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Duración Estimada <span class="required-star">*</span></label>
+            <input type="text" id="servDuracion" placeholder="Ej. 30 min / 1 hora 30 min" required>
+          </div>
+
+          <div class="form-group">
+            <label>Costo ($ MXN) <span class="required-star">*</span></label>
+            <input type="number" step="0.01" id="servCosto" placeholder="0.00" min="0" required>
+          </div>
+
+          <div class="form-group full-width">
+            <label>Descripción / Indicaciones del Servicio <span class="required-star">*</span></label>
+            <input type="text" id="servDescripcion" placeholder="Breve detalle de lo que incluye el procedimiento" required>
+          </div>
+
+          <div class="form-group full-width">
+            <label>Adjuntar Guía de Procedimiento / Protocolo</label>
+            <label class="file-drop-area" for="servArchivo">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+              <div style="font-size: 0.82rem; color: #64748b;">Clic para subir PDF, JPG o PNG</div>
+              <input type="file" id="servArchivo" accept=".pdf,.jpg,.jpeg,.png">
+              <span class="file-name-preview" id="nombreArchivoPreviewServicio">Ningún archivo seleccionado</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="cerrarModal('modalServicio')">Cancelar</button>
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Guardar Servicio</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/shared/utilidades.js"></script>
+  <script src="js/servicios/servicio.js"></script>
+</body>
+</html>

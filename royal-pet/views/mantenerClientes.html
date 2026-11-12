@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Royal Pet - Clientes</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Contenedor global de alertas animadas -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <aside class="sidebar">
+    <div class="logo-container" title="Logo Royal Pet">
+        <img src="img/royalpet.jpeg" alt="Logo royal Pet">
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="index.html"><i class="fa-solid fa-house"></i> Inicio</a></li>
+      <li><a href="mantenerEmpleados.html"><i class="fa-solid fa-user-doctor"></i> Empleados</a></li>
+      <li><a href="mantenerClientes.html" class="active"><i class="fa-solid fa-users"></i> Clientes</a></li>
+      <li><a href="mantenerMascotas.html"><i class="fa-solid fa-dog"></i> Mascotas</a></li>
+      <li><a href="mantenerServicios.html"><i class="fa-solid fa-stethoscope"></i> Servicios</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+    <div class="page-header">
+      <div>
+        <h1>Gestión de Clientes</h1>
+        <p class="page-subtitle">Directorio y control de propietarios de mascotas de la clínica</p>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="buscarCliente" placeholder="Buscar por nombre, teléfono o correo...">
+      </div>
+      <button class="btn btn-primary" id="btnNuevoCliente">
+        <i class="fa-solid fa-plus"></i> Nuevo Cliente
+      </button>
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre del Propietario</th>
+            <th>Edad</th>
+            <th>Teléfono</th>
+            <th>Correo</th>
+            <th>Dirección</th>
+            <th>Membresía</th>
+            <th>Archivo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tablaClientes">
+          <!-- Se renderiza dinámicamente con JS -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Modal Profesional Agregar / Editar Cliente -->
+  <div class="modal-overlay" id="modalCliente">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalClienteTitulo">Registrar Nuevo Cliente</h2>
+        <button class="close-modal" onclick="cerrarModal('modalCliente')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <form id="formCliente" novalidate>
+        <input type="hidden" id="cliId">
+
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label>Nombre Completo <span class="required-star">*</span></label>
+            <input type="text" id="cliNombre" placeholder="Ej. Alejandro Torres Gómez" required>
+          </div>
+
+          <div class="form-group">
+            <label>Edad <span class="required-star">*</span></label>
+            <input type="number" id="cliEdad" placeholder="Ej. 32" min="18" max="100" required>
+          </div>
+
+          <div class="form-group">
+            <label>Tipo de Cliente / Membresía <span class="required-star">*</span></label>
+            <select id="cliMembresia" required>
+              <option value="">Selecciona una membresía...</option>
+              <option value="Regular">Regular</option>
+              <option value="Frecuente">Frecuente (10% Desc.)</option>
+              <option value="VIP Royal">VIP Royal (20% Desc. + Urgencias)</option>
+              <option value="Adoptante">Programa de Adopción</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Teléfono (10 dígitos) <span class="required-star">*</span></label>
+            <input type="tel" id="cliTelefono" placeholder="5598765432" maxlength="10" required>
+          </div>
+
+          <div class="form-group">
+            <label>Correo Electrónico <span class="required-star">*</span></label>
+            <input type="email" id="cliCorreo" placeholder="cliente@correo.com" required>
+          </div>
+
+          <div class="form-group full-width">
+            <label>Dirección Completa <span class="required-star">*</span></label>
+            <input type="text" id="cliDireccion" placeholder="Calle, número, colonia y municipio" required>
+          </div>
+
+          <div class="form-group full-width">
+            <label>Adjuntar Identificación o Comprobante</label>
+            <label class="file-drop-area" for="cliArchivo">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+              <div style="font-size: 0.82rem; color: #64748b;">Clic para subir INE, Comprobante (PDF, JPG o PNG)</div>
+              <input type="file" id="cliArchivo" accept=".pdf,.jpg,.jpeg,.png">
+              <span class="file-name-preview" id="nombreArchivoPreviewCliente">Ningún archivo seleccionado</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="cerrarModal('modalCliente')">Cancelar</button>
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Guardar Cliente</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/shared/utilidades.js"></script>
+  <script src="js/clientes/cliente.js"></script>
+</body>
+</html>
